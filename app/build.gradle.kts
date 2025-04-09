@@ -46,6 +46,7 @@ dependencies {
     implementation(libs.bundles.coroutines)
     implementation(libs.bundles.ktor)
 
+    implementation(libs.androidx.activity.ktx)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
