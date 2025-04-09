@@ -39,6 +39,7 @@ dependencies {
 
     implementation(libs.bundles.koin)
     implementation(libs.bundles.coroutines)
+    implementation(libs.bundles.ktor)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
