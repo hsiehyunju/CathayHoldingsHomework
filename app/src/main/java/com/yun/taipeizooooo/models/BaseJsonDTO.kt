@@ -8,11 +8,18 @@ import kotlinx.serialization.serializer
 
 @Serializable
 open class BaseJsonDTO {}
-open class RequestData(): BaseJsonDTO()
+
+@Serializable
+class RequestData(
+    val offset: Int,
+    val limit: Int,
+) : BaseJsonDTO()
+
+@Serializable
 open class ResponseData(): BaseJsonDTO()
 
 
-inline fun <reified T : BaseJsonDTO> T.toQueryMap(): Map<String, String> {
+fun  RequestData.toQueryMap(): Map<String, String> {
     val jsonElement = Json.encodeToJsonElement(serializer(), this)
     val json = jsonElement as JsonObject
     return json.mapValues { it.value.jsonPrimitive.content }
