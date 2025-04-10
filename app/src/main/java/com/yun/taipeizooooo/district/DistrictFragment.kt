@@ -78,14 +78,16 @@ class DistrictFragment : Fragment() {
                 viewModel.uiState.collectLatest {
                     when (it) {
                         is DistrictUiState.Loading -> {
-//                            binding.testbtn.text = "Loading..."
+                            binding.progress.visibility = View.VISIBLE
                         }
 
                         is DistrictUiState.Success -> {
+                            binding.progress.visibility = View.INVISIBLE
                             adapter.submitList(it.districts)
                         }
 
                         is DistrictUiState.Failure -> {
+                            binding.progress.visibility = View.INVISIBLE
 //                            binding.testbtn.text = "Error"
                         }
                     }
