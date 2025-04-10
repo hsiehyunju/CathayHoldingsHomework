@@ -1,7 +1,6 @@
 package com.yun.taipeizooooo
 
 import android.os.Bundle
- import androidx.activity.viewModels
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -12,6 +11,7 @@ import com.yun.taipeizooooo.databinding.ActivityTaipeiZooBinding
 import com.yun.taipeizooooo.viewModels.TaipeiZooActivityViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class TaipeiZooActivity : AppCompatActivity() {
 
@@ -19,7 +19,7 @@ class TaipeiZooActivity : AppCompatActivity() {
         ActivityTaipeiZooBinding.inflate(layoutInflater)
     }
 
-    private val viewModel by viewModels<TaipeiZooActivityViewModel>()
+    private val viewModel: TaipeiZooActivityViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +32,7 @@ class TaipeiZooActivity : AppCompatActivity() {
 
         if (savedInstanceState == null) {
             setSupportActionBarTitle(resId = R.string.home_title)
-            goToFragment(Fragment())
+            goToFragment(DistrictFragment.newInstance())
         }
     }
 

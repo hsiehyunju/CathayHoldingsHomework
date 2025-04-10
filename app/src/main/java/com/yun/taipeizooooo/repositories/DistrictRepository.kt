@@ -3,6 +3,8 @@
 import com.yun.taipeizooooo.models.DistrictResponse
 import com.yun.taipeizooooo.models.RequestData
 import com.yun.taipeizooooo.network.ApiService
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOf
 
  /**
   * DistrictRepository 用來處理與動物園管區相關的資料請求
@@ -21,8 +23,9 @@ import com.yun.taipeizooooo.network.ApiService
     suspend fun fetchDistricts(
         offset: Int,
         limit: Int
-    ) = apiService.get<DistrictResponse>(
+    ): DistrictResponse = apiService.get(
         url = "https://data.taipei/api/v1/dataset/9683ba26-109e-4cb8-8f3d-03d1b349db9f?scope=resourceAquire",
         request = RequestData(offset, limit)
     )
+
 }
