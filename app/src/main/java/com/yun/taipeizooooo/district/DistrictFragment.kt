@@ -43,7 +43,9 @@ class DistrictFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        adapter = DistrictAdapter()
+        adapter = DistrictAdapter {
+            println("Clicked item: ${it.name}")
+        }
         initCollect()
         initView()
         initData()

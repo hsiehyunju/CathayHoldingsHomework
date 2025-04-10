@@ -8,7 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.yun.taipeizooooo.databinding.ItemDistrictInfoBinding
 import com.yun.taipeizooooo.models.DistrictData
 
-class DistrictAdapter : ListAdapter<DistrictData, DistrictAdapter.DistrictViewHolder>(DIFF_CALLBACK) {
+class DistrictAdapter(
+    private val onItemClick: ((DistrictData) -> Unit)? = null,
+) : ListAdapter<DistrictData, DistrictAdapter.DistrictViewHolder>(DIFF_CALLBACK) {
 
     inner class DistrictViewHolder(private val binding: ItemDistrictInfoBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(data: DistrictData) {
@@ -16,6 +18,9 @@ class DistrictAdapter : ListAdapter<DistrictData, DistrictAdapter.DistrictViewHo
                 imageView.loadImage(data.pictureUrl)
                 tvTitle.text = data.name
                 tvDesc.text = data.info
+                root.setOnClickListener {
+                    onItemClick?.invoke(data)
+                }
             }
         }
     }
