@@ -60,7 +60,7 @@ class DistrictFragment : Fragment() {
                 val totalItemCount = layoutManager.itemCount
                 val lastVisibleItem = layoutManager.findLastVisibleItemPosition()
 
-                // 最後一個 item 可見觸發
+                // 最後一個 item 可見觸發拿下一頁
                 if (totalItemCount > 0 && lastVisibleItem >= totalItemCount - 1) {
                     viewModel.fetchDistrictData()
                 }
@@ -81,7 +81,6 @@ class DistrictFragment : Fragment() {
 
                         is DistrictUiState.Success -> {
                             adapter.submitList(it.districts)
-//                            binding.testbtn.text = "${it.districts.count()}"
                         }
 
                         is DistrictUiState.Failure -> {

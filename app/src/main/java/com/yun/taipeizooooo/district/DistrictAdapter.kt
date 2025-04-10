@@ -12,7 +12,11 @@ class DistrictAdapter : ListAdapter<DistrictData, DistrictAdapter.DistrictViewHo
 
     inner class DistrictViewHolder(private val binding: ItemDistrictInfoBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(data: DistrictData) {
-            binding.imageView.loadImage(data.pictureUrl)
+            binding.apply {
+                imageView.loadImage(data.pictureUrl)
+                tvTitle.text = data.name
+                tvDesc.text = data.info
+            }
         }
     }
 
