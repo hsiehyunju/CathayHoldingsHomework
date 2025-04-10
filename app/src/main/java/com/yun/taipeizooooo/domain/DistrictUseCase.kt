@@ -26,8 +26,7 @@ class DistrictUseCase(
     private val cachedList = mutableListOf<DistrictData>()
 
     operator fun invoke(): Flow<DistrictUiState> = flow {
-        println("YUN = invoke")
-        // 已經全部抓完就不打 API，直接回傳暫存資料
+         // 已經全部抓完就不打 API，直接回傳暫存資料
         if (isCalled && currentOffset >= totalSize) {
             isOver = true
             emit(DistrictUiState.Success(cachedList.toList()))
