@@ -9,6 +9,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.yun.taipeizooooo.databinding.FragmentDistrictBinding
 import com.yun.taipeizooooo.events.DistrictUiState
 import com.yun.taipeizooooo.viewModels.DistrictViewModel
@@ -51,6 +52,20 @@ class DistrictFragment : Fragment() {
     private fun initView() {
         binding.rvDistrictList.layoutManager = LinearLayoutManager(requireContext())
         binding.rvDistrictList.adapter = adapter
+        binding.rvDistrictList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                val layoutManager = recyclerView.layoutManager as? LinearLayoutManager ?: return
+                val totalItemCount = layoutManager.itemCount
+                val lastVisibleItem = layoutManager.findLastVisibleItemPosition()
+
+                // 最後一個 item 可見觸發
+                if (totalItemCount > 0 && lastVisibleItem >= totalItemCount - 1) {
+                    viewModel.fetchDistrictData()
+                }
+            }
+        })
     }
 
     private fun initData() = viewModel.fetchDistrictData()
@@ -77,11 +92,4 @@ class DistrictFragment : Fragment() {
             }
         }
     }
-
-
-
-
-
-
-
 }
