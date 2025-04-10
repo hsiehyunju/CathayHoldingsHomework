@@ -42,11 +42,12 @@ android {
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
     implementation(libs.bundles.koin)
     implementation(libs.bundles.coroutines)
     implementation(libs.bundles.ktor)
 
+    implementation(libs.kotin.serialization.json)
+    implementation(libs.glide)
     implementation(libs.androidx.activity.ktx)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
