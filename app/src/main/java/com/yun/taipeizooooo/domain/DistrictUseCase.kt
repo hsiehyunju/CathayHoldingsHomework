@@ -26,6 +26,7 @@ class DistrictUseCase(
     private val cachedList = mutableListOf<DistrictData>()
 
     operator fun invoke(): Flow<DistrictUiState> = flow {
+        println("YUN = invoke")
         // 已經全部抓完就不打 API，直接回傳暫存資料
         if (isCalled && currentOffset >= totalSize) {
             isOver = true
@@ -36,8 +37,16 @@ class DistrictUseCase(
         try {
             isCalled = true
             val response = repository.fetchDistricts(offset = currentOffset, limit = pageSize)
-            val districts = response.result.results
             totalSize = response.result.count
+
+            // 將 http 改為 https
+            val districts = response.result.results.map { district ->
+                if (district.pictureUrl.startsWith("http://")) {
+                    district.copy(pictureUrl = district.pictureUrl.replaceFirst("http://", "https://"))
+                } else {
+                    district
+                }
+            }
 
             cachedList.addAll(districts)
             currentOffset += pageSize

@@ -8,6 +8,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.yun.taipeizooooo.databinding.ActivityTaipeiZooBinding
+import com.yun.taipeizooooo.district.DistrictFragment
 import com.yun.taipeizooooo.viewModels.TaipeiZooActivityViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
