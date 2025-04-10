@@ -6,6 +6,11 @@ import com.yun.taipeizooooo.models.toQueryMap
 import io.ktor.client.call.body
 import io.ktor.client.request.get
 
+/**
+ * ApiService is a service class that handles API requests.
+ *
+ * @param networkClient The network client used to make requests.
+ */
 class ApiService(
     private val networkClient: NetworkClient
 ) {
