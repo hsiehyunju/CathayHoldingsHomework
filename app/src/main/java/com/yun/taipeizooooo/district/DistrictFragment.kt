@@ -1,4 +1,4 @@
-package com.yun.taipeizooooo
+ package com.yun.taipeizooooo.district
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.yun.taipeizooooo.databinding.FragmentDistrictBinding
 import com.yun.taipeizooooo.events.DistrictUiState
 import com.yun.taipeizooooo.viewModels.DistrictViewModel
@@ -21,6 +22,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class DistrictFragment : Fragment() {
 
     private lateinit var binding: FragmentDistrictBinding
+    private lateinit var adapter: DistrictAdapter
     private val viewModel: DistrictViewModel by viewModel()
 
     companion object {
@@ -40,19 +42,18 @@ class DistrictFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        adapter = DistrictAdapter()
+        initCollect()
         initView()
         initData()
-        initCollect()
     }
 
     private fun initView() {
-        binding.testbtn.setOnClickListener {
-            viewModel.fetchDistrictData()
-        }
+        binding.rvDistrictList.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvDistrictList.adapter = adapter
     }
-    private fun initData() {
 
-    }
+    private fun initData() = viewModel.fetchDistrictData()
 
     private fun initCollect() {
         viewLifecycleOwner.lifecycleScope.launch {
@@ -60,15 +61,16 @@ class DistrictFragment : Fragment() {
                 viewModel.uiState.collectLatest {
                     when (it) {
                         is DistrictUiState.Loading -> {
-                            binding.testbtn.text = "Loading..."
+//                            binding.testbtn.text = "Loading..."
                         }
 
                         is DistrictUiState.Success -> {
-                            binding.testbtn.text = "${it.districts.count()}"
+                            adapter.submitList(it.districts)
+//                            binding.testbtn.text = "${it.districts.count()}"
                         }
 
                         is DistrictUiState.Failure -> {
-                            binding.testbtn.text = "Error"
+//                            binding.testbtn.text = "Error"
                         }
                     }
                 }
