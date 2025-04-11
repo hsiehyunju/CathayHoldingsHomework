@@ -1,13 +1,16 @@
 package com.yun.taipeizooooo.models
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.jsonPrimitive
 import kotlinx.serialization.serializer
 
+@Parcelize
 @Serializable
-open class BaseJsonDTO {}
+open class BaseJsonDTO : Parcelable
 
 @Serializable
 class RequestData(
@@ -15,8 +18,9 @@ class RequestData(
     val limit: Int,
 ) : BaseJsonDTO()
 
+@Parcelize
 @Serializable
-open class ResponseData(): BaseJsonDTO()
+open class ResponseData : BaseJsonDTO()
 
 
 fun  RequestData.toQueryMap(): Map<String, String> {

@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.serialization)
+    id("kotlin-parcelize")
 }
 
 android {
@@ -10,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId = "com.yun.taipeizooooo"
-        minSdk = 24
+        minSdk = 33
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"

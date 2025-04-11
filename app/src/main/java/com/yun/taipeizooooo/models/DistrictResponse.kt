@@ -1,21 +1,26 @@
 package com.yun.taipeizooooo.models
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
+@Parcelize
 @Serializable
 data class DistrictResponse(
     @SerialName("result") val result: DistrictResult,
 ) : ResponseData()
 
+@Parcelize
 @Serializable
 data class DistrictResult(
     val limit: Int,
     val offset: Int,
     val count: Int,
     @SerialName("results") val results: List<DistrictData>
-)
+) : Parcelable
 
+@Parcelize
 @Serializable
 data class DistrictData (
     @SerialName("_id") val id: Int,
@@ -28,11 +33,12 @@ data class DistrictData (
     @SerialName("e_memo") val memo: String? = null,
     @SerialName("e_geo") val geo: String,
     @SerialName("e_url") val url: String
-)
+) : Parcelable
 
+@Parcelize
 @Serializable
 data class ImportDate(
     val date: String,
     @SerialName("timezone_type") val timezoneType: Int,
     val timezone: String
-)
+) : Parcelable

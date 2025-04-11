@@ -8,7 +8,9 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.yun.taipeizooooo.databinding.ActivityTaipeiZooBinding
+import com.yun.taipeizooooo.district.DistrictDetailFragment
 import com.yun.taipeizooooo.district.DistrictFragment
+import com.yun.taipeizooooo.events.TaipeiZooActivityEvents
 import com.yun.taipeizooooo.viewModels.TaipeiZooActivityViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -25,10 +27,12 @@ class TaipeiZooActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         with(binding) {
-            setSupportActionBar(toolbar)
+//            setSupportActionBar(toolbar)
             setContentView(root)
         }
 
+        initView()
+        initListener()
         initCollect()
 
         if (savedInstanceState == null) {
@@ -37,11 +41,42 @@ class TaipeiZooActivity : AppCompatActivity() {
         }
     }
 
+    private fun initView() {
+//        binding.toolbar.setNavigationOnClickListener {
+//            onBackPressedDispatcher.onBackPressed()
+//        }
+//        ViewCompat.setOnApplyWindowInsetsListener(binding.toolbar) { view, insets ->
+//            val statusBarHeight = insets.getInsets(WindowInsetsCompat.Type.statusBars()).top
+//
+//            val layoutParams = view.layoutParams as ViewGroup.MarginLayoutParams
+//            layoutParams.topMargin = statusBarHeight
+//            view.layoutParams = layoutParams
+//
+//            insets
+//        }
+    }
+
+    private fun initListener() {
+        supportFragmentManager.addOnBackStackChangedListener {
+            // 如果堆疊中有Fragment，就顯示返回按鈕
+            val canGoBack = supportFragmentManager.backStackEntryCount > 0
+            supportActionBar?.setDisplayHomeAsUpEnabled(canGoBack)
+            supportActionBar?.setDisplayShowHomeEnabled(canGoBack)
+        }
+    }
+
     private fun initCollect() {
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.events.collectLatest {
-
+                viewModel.events.collectLatest { event ->
+                    when (event) {
+                        is TaipeiZooActivityEvents.ToDistrictDetail -> {
+                            supportFragmentManager.beginTransaction()
+                                .add(binding.fragmentContainer.id, DistrictDetailFragment.getInstance(event.data))
+                                .addToBackStack(null)
+                                .commit()
+                        }
+                    }
                 }
             }
         }

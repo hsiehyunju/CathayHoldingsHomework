@@ -3,4 +3,12 @@
 
 
     <string name="home_title">台北動物園管區簡介</string>
+
+
+
+    <string name="district_detail_info_title">園區說明</string>
+    <string name="district_detail_memo_title">額外資訊</string>
+    <string name="district_detail_memo_empty_msg">無</string>
+    <string name="district_detail_get_more_info">取得更多資訊</string>
+    <string name="district_detail_update_time_title">上次更新時間：%s</string>
 </resources>

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.WindowCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -12,9 +13,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.yun.taipeizooooo.databinding.FragmentDistrictBinding
 import com.yun.taipeizooooo.events.DistrictUiState
+import com.yun.taipeizooooo.events.TaipeiZooActivityEvents
 import com.yun.taipeizooooo.viewModels.DistrictViewModel
+import com.yun.taipeizooooo.viewModels.TaipeiZooActivityViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
@@ -24,6 +28,7 @@ class DistrictFragment : Fragment() {
 
     private lateinit var binding: FragmentDistrictBinding
     private lateinit var adapter: DistrictAdapter
+    private val shareViewModel by activityViewModel<TaipeiZooActivityViewModel>()
     private val viewModel: DistrictViewModel by viewModel()
 
     companion object {
@@ -36,7 +41,7 @@ class DistrictFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentDistrictBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -44,7 +49,11 @@ class DistrictFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         adapter = DistrictAdapter {
-            println("Clicked item: ${it.name}")
+            shareViewModel.go(
+                TaipeiZooActivityEvents.ToDistrictDetail(
+                    data = it
+                )
+            )
         }
         initCollect()
         initView()
