@@ -5,23 +5,21 @@ import com.yun.taipeizooooo.models.DistrictData
 import com.yun.taipeizooooo.repositories.DistrictRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 
 
-@OptIn(ExperimentalCoroutinesApi::class)
 class DistrictUseCase(
     private val repository: DistrictRepository,
-    private var ioDispatcher: CoroutineDispatcher = Dispatchers.IO
+    private var ioDispatcher: CoroutineDispatcher = Dispatchers.IO,
+    private val pageSize: Int = 10,
 ) {
 
     var isOver = false
 
     private var isCalled = false
     private var currentOffset: Int = 0
-    private var pageSize: Int = 10
     private var totalSize: Int = 0
     private val cachedList = mutableListOf<DistrictData>()
 
