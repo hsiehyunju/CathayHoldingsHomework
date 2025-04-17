@@ -1,6 +1,6 @@
 package com.yun.taipeizooooo.network
 
- import com.yun.taipeizooooo.domain.AnimalUseCase
+import com.yun.taipeizooooo.domain.AnimalUseCase
 import com.yun.taipeizooooo.domain.DistrictUseCase
 import com.yun.taipeizooooo.domain.PlantUseCase
 import com.yun.taipeizooooo.repositories.AnimalRepository
