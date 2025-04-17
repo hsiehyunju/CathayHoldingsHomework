@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.WindowCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -66,14 +67,16 @@ class DistrictFragment : Fragment() {
         binding.rvDistrictList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
+                if (viewModel.getCanNextPage()) {
+                    val layoutManager = recyclerView.layoutManager as? LinearLayoutManager ?: return
+                    val totalItemCount = layoutManager.itemCount
+                    val lastVisibleItem = layoutManager.findLastVisibleItemPosition()
 
-                val layoutManager = recyclerView.layoutManager as? LinearLayoutManager ?: return
-                val totalItemCount = layoutManager.itemCount
-                val lastVisibleItem = layoutManager.findLastVisibleItemPosition()
-
-                // 最後一個 item 可見觸發拿下一頁
-                if (totalItemCount > 0 && lastVisibleItem >= totalItemCount - 1) {
-                    viewModel.fetchDistrictData()
+                    // 最後一個 item 可見觸發拿下一頁
+                    if (totalItemCount > 0 && lastVisibleItem >= totalItemCount - 1) {
+                        binding.loadMoreProgress.visibility = View.VISIBLE
+                        viewModel.fetchDistrictData()
+                    }
                 }
             }
         })
@@ -93,6 +96,7 @@ class DistrictFragment : Fragment() {
                         is DistrictUiState.Success -> {
                             binding.progress.visibility = View.INVISIBLE
                             adapter.submitList(it.districts)
+                            binding.loadMoreProgress.visibility = View.GONE
                         }
 
                         is DistrictUiState.Failure -> {

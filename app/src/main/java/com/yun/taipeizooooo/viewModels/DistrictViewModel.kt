@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
@@ -19,10 +20,15 @@ class DistrictViewModel(
     private val useCase: DistrictUseCase
 ) : ViewModel() {
 
+    private var canNextPage: Boolean = true
+
     private val _fetchTrigger = MutableStateFlow<RequestData?>(null)
     val uiState: StateFlow<DistrictUiState> = _fetchTrigger
         .filterNotNull()
         .flatMapLatest { useCase() }
+        .onEach {
+            canNextPage = useCase.isOver.not()
+        }
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.Lazily,
@@ -30,10 +36,13 @@ class DistrictViewModel(
         )
 
     fun fetchDistrictData() {
-        if (useCase.isOver.not()) {
+        if (getCanNextPage()) {
             viewModelScope.launch {
                 _fetchTrigger.emit(RequestData(0, 0))
             }
         }
     }
+
+
+    fun getCanNextPage() = canNextPage
 }

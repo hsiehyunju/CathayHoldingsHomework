@@ -34,11 +34,3 @@ data class DistrictData (
     @SerialName("e_geo") val geo: String,
     @SerialName("e_url") val url: String
 ) : Parcelable
-
-@Parcelize
-@Serializable
-data class ImportDate(
-    val date: String,
-    @SerialName("timezone_type") val timezoneType: Int,
-    val timezone: String
-) : Parcelable

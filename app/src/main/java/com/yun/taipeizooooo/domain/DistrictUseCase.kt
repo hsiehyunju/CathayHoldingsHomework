@@ -25,8 +25,7 @@ class DistrictUseCase(
 
     operator fun invoke(): Flow<DistrictUiState> = flow {
          // 已經全部抓完就不打 API，直接回傳暫存資料
-        if (isCalled && currentOffset >= totalSize) {
-            isOver = true
+        if (isOver && isCalled && currentOffset >= totalSize) {
             emit(DistrictUiState.Success(cachedList.toList()))
             return@flow
         }
@@ -46,7 +45,10 @@ class DistrictUseCase(
             }
 
             cachedList.addAll(districts)
-            currentOffset += pageSize
+            if (cachedList.size >= totalSize) {
+                isOver = true
+            }
+            currentOffset += districts.size
 
             if (cachedList.isEmpty()) {
                 emit(DistrictUiState.Failure("No Data Found"))
