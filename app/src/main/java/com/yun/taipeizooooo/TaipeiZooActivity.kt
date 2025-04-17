@@ -2,8 +2,12 @@ package com.yun.taipeizooooo
 
 import android.os.Bundle
 import android.view.View
+import android.view.ViewGroup
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -32,6 +36,7 @@ class TaipeiZooActivity : AppCompatActivity() {
             setContentView(root)
         }
 
+        initEdgeToEdge()
         initView()
         initListener()
         initCollect()
@@ -41,19 +46,21 @@ class TaipeiZooActivity : AppCompatActivity() {
         }
     }
 
+    private fun initEdgeToEdge() {
+        val windowInsetsController = WindowCompat.getInsetsController(window, window.decorView)
+        windowInsetsController.isAppearanceLightStatusBars = true // 黑色 icon
+    }
+
     private fun initView() {
-//        binding.toolbar.setNavigationOnClickListener {
-//            onBackPressedDispatcher.onBackPressed()
-//        }
-//        ViewCompat.setOnApplyWindowInsetsListener(binding.toolbar) { view, insets ->
-//            val statusBarHeight = insets.getInsets(WindowInsetsCompat.Type.statusBars()).top
-//
-//            val layoutParams = view.layoutParams as ViewGroup.MarginLayoutParams
-//            layoutParams.topMargin = statusBarHeight
-//            view.layoutParams = layoutParams
-//
-//            insets
-//        }
+        ViewCompat.setOnApplyWindowInsetsListener(binding.tvHomeTitle) { view, insets ->
+            val statusBarHeight = insets.getInsets(WindowInsetsCompat.Type.statusBars()).top
+
+            val layoutParams = view.layoutParams as ViewGroup.MarginLayoutParams
+            layoutParams.topMargin = statusBarHeight
+            view.layoutParams = layoutParams
+
+            insets
+        }
     }
 
     private fun initListener() {

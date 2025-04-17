@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import com.yun.taipeizooooo.R
 import com.yun.taipeizooooo.databinding.FragmentItemDetailBinding
@@ -47,6 +49,7 @@ class ItemDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
+        initEdge2Edge()
     }
 
     private fun initView() {
@@ -73,6 +76,28 @@ class ItemDetailFragment : Fragment() {
             R.string.district_detail_update_time_title,
             getTime()
         )
+    }
+
+    private fun initEdge2Edge() {
+        ViewCompat.setOnApplyWindowInsetsListener(binding.appBarLayout) { view, insets ->
+            val barHeight = insets.getInsets(WindowInsetsCompat.Type.statusBars()).top
+
+            val layoutParams = view.layoutParams as ViewGroup.MarginLayoutParams
+            layoutParams.topMargin = barHeight
+            view.layoutParams = layoutParams
+
+            insets
+        }
+
+        ViewCompat.setOnApplyWindowInsetsListener(binding.scrollView) { view, insets ->
+            val barHeight = insets.getInsets(WindowInsetsCompat.Type.navigationBars()).bottom
+
+            val layoutParams = view.layoutParams as ViewGroup.MarginLayoutParams
+            layoutParams.bottomMargin = barHeight
+            view.layoutParams = layoutParams
+
+            insets
+        }
     }
 
     private fun getName(): String {

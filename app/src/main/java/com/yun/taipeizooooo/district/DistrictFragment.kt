@@ -4,8 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.WindowCompat
-import androidx.core.view.isVisible
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -58,6 +58,7 @@ class DistrictFragment : Fragment() {
         }
         initCollect()
         initView()
+        initEdgeToEdge()
         initData()
     }
 
@@ -80,6 +81,18 @@ class DistrictFragment : Fragment() {
                 }
             }
         })
+    }
+
+    private fun initEdgeToEdge() {
+        ViewCompat.setOnApplyWindowInsetsListener(binding.edge2EdgeSpacer) { view, insets ->
+            val barHeight = insets.getInsets(WindowInsetsCompat.Type.navigationBars()).bottom
+
+            val layoutParams = view.layoutParams as ViewGroup.MarginLayoutParams
+            layoutParams.bottomMargin = barHeight
+            view.layoutParams = layoutParams
+
+            insets
+        }
     }
 
     private fun initData() = viewModel.fetchDistrictData()
