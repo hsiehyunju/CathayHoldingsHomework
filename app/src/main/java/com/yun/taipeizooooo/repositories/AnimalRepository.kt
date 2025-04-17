@@ -1,5 +1,6 @@
  package com.yun.taipeizooooo.repositories
 
+import com.yun.taipeizooooo.models.AnimalResponse
 import com.yun.taipeizooooo.models.DistrictResponse
 import com.yun.taipeizooooo.models.RequestData
 import com.yun.taipeizooooo.network.ApiService
@@ -21,7 +22,7 @@ import com.yun.taipeizooooo.network.ApiService
     suspend fun fetchAnimals(
         offset: Int,
         limit: Int
-    ): DistrictResponse = apiService.get(
+    ): AnimalResponse = apiService.get(
         url = "https://data.taipei/api/v1/dataset/6afa114d-38a2-4e3c-9cfd-29d3bd26b65b?scope=resourceAquire",
         request = RequestData(offset, limit)
     )

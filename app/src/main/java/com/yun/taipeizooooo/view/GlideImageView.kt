@@ -23,15 +23,16 @@ class GlideImageView @JvmOverloads constructor(
     private val imageView = AppCompatImageView(context).apply {
         layoutParams = LayoutParams(
             LayoutParams.MATCH_PARENT,
-            LayoutParams.MATCH_PARENT
+            LayoutParams.MATCH_PARENT,
+            Gravity.CENTER
         )
         scaleType = ImageView.ScaleType.CENTER_CROP
     }
 
     private val progressBar = ProgressBar(context).apply {
         layoutParams = LayoutParams(
-            LayoutParams.WRAP_CONTENT,
-            LayoutParams.WRAP_CONTENT,
+            LayoutParams.MATCH_PARENT,
+            LayoutParams.MATCH_PARENT,
             Gravity.CENTER
         )
     }
@@ -44,8 +45,14 @@ class GlideImageView @JvmOverloads constructor(
     fun loadImage(url: String) {
         progressBar.visibility = VISIBLE
 
+        val fixedUrl = if (url.startsWith("http://")) {
+            url.replaceFirst("http://", "https://")
+        } else {
+            url
+        }
+
         Glide.with(context)
-            .load(url)
+            .load(fixedUrl)
             .addListener(object : RequestListener<Drawable> {
                 override fun onLoadFailed(
                     e: GlideException?,

@@ -25,7 +25,9 @@ class DistrictViewModel(
     private val _fetchTrigger = MutableStateFlow<RequestData?>(null)
     val uiState: StateFlow<DistrictUiState> = _fetchTrigger
         .filterNotNull()
-        .flatMapLatest { useCase() }
+        .flatMapLatest {
+            useCase()
+        }
         .onEach {
             canNextPage = useCase.isOver.not()
         }

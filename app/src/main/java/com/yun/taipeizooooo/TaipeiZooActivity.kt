@@ -1,6 +1,7 @@
 package com.yun.taipeizooooo
 
 import android.os.Bundle
+import android.view.View
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -10,6 +11,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.yun.taipeizooooo.databinding.ActivityTaipeiZooBinding
 import com.yun.taipeizooooo.district.DistrictDetailFragment
 import com.yun.taipeizooooo.district.DistrictFragment
+import com.yun.taipeizooooo.district.ItemDetailFragment
 import com.yun.taipeizooooo.events.TaipeiZooActivityEvents
 import com.yun.taipeizooooo.viewModels.TaipeiZooActivityViewModel
 import kotlinx.coroutines.flow.collectLatest
@@ -27,7 +29,6 @@ class TaipeiZooActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         with(binding) {
-//            setSupportActionBar(toolbar)
             setContentView(root)
         }
 
@@ -36,7 +37,6 @@ class TaipeiZooActivity : AppCompatActivity() {
         initCollect()
 
         if (savedInstanceState == null) {
-            setSupportActionBarTitle(resId = R.string.home_title)
             goToFragment(DistrictFragment.newInstance())
         }
     }
@@ -62,6 +62,10 @@ class TaipeiZooActivity : AppCompatActivity() {
             val canGoBack = supportFragmentManager.backStackEntryCount > 0
             supportActionBar?.setDisplayHomeAsUpEnabled(canGoBack)
             supportActionBar?.setDisplayShowHomeEnabled(canGoBack)
+            binding.tvHomeTitle.visibility = when (canGoBack) {
+                true -> View.GONE
+                else -> View.VISIBLE
+            }
         }
     }
 
@@ -73,6 +77,12 @@ class TaipeiZooActivity : AppCompatActivity() {
                         is TaipeiZooActivityEvents.ToDistrictDetail -> {
                             supportFragmentManager.beginTransaction()
                                 .add(binding.fragmentContainer.id, DistrictDetailFragment.getInstance(event.data))
+                                .addToBackStack(null)
+                                .commit()
+                        }
+                        is TaipeiZooActivityEvents.ToItemDetail -> {
+                            supportFragmentManager.beginTransaction()
+                                .add(binding.fragmentContainer.id, ItemDetailFragment.getInstance(event.item))
                                 .addToBackStack(null)
                                 .commit()
                         }

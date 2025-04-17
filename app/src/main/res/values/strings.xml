@@ -1,14 +1,26 @@
 <resources>
     <string name="app_name">TaipeiZooooo</string>
 
-
-    <string name="home_title">台北動物園管區簡介</string>
-
-
+    <string name="home_district_title">台北動物園管區簡介</string>
+    <string name="home_plant_title">台北動物園植物簡介</string>
+    <string name="home_animal_title">台北動物園動物簡介</string>
+    <string name="home_chip_change_to_district">前往管區資料</string>
+    <string name="home_chip_change_to_plant">前往植物資料</string>
+    <string name="home_chip_change_to_animal">前往動物資料</string>
 
     <string name="district_detail_info_title">園區說明</string>
     <string name="district_detail_memo_title">額外資訊</string>
     <string name="district_detail_memo_empty_msg">無</string>
     <string name="district_detail_get_more_info">取得更多資訊</string>
     <string name="district_detail_update_time_title">上次更新時間：%s</string>
+    <string name="district_detail_plant_item">園區植物</string>
+    <string name="district_detail_animal_item">園區動物</string>
+
+    <string name="item_detail_eng_name">英文名稱</string>
+    <string name="item_detail_also_known">別名</string>
+    <string name="item_detail_intro">簡介</string>
+    <string name="item_detail_feature">辨認方式</string>
+    <string name="item_detail_function_plant">功能性</string>
+    <string name="item_detail_function_animal">其他介紹</string>
+
 </resources>

@@ -55,85 +55,73 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- 說明 -->
+            <!-- 英文名字 -->
             <TextView
-                style="@style/BoldTextStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/district_detail_info_title" />
-
-            <TextView
-                android:id="@+id/tv_district_info"
+                style="@style/ItemDetailTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp" />
-
-            <!-- 額外說明 -->
-            <TextView
-                style="@style/BoldTextStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="@string/district_detail_memo_title" />
+                android:text="@string/item_detail_eng_name" />
 
             <TextView
-                android:id="@+id/tv_memo"
+                android:id="@+id/tv_item_english_name"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="@string/district_detail_memo_empty_msg" />
+                android:layout_height="wrap_content" />
 
-            <!-- 前往網站按鈕 -->
-            <Button
-                android:id="@+id/btn_get_more"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginVertical="24dp"
-                android:text="@string/district_detail_get_more_info" />
-
-            <!-- 更新時間 -->
+            <!-- 別名 -->
             <TextView
-                android:id="@+id/tv_update_time"
+                style="@style/ItemDetailTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:textAlignment="center" />
+                android:text="@string/item_detail_also_known" />
 
-            <!-- 植物 -->
             <TextView
-                android:id="@+id/tv_plant_title"
+                android:id="@+id/tv_also_known"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:paddingVertical="8dp"
-                android:text="@string/district_detail_plant_item" />
+                android:layout_height="wrap_content" />
 
-            <LinearLayout
-                android:id="@+id/ll_plant_items"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                tools:ignore="UselessLeaf" />
-
-            <!-- 動物 -->
+            <!-- 簡介 -->
             <TextView
-                android:id="@+id/tv_animal_title"
+                style="@style/ItemDetailTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:paddingVertical="8dp"
-                android:text="@string/district_detail_animal_item" />
+                android:text="@string/item_detail_intro" />
 
-            <LinearLayout
-                android:id="@+id/ll_animal_items"
+            <TextView
+                android:id="@+id/tv_intro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <!-- 辨認方式 -->
+            <TextView
+                style="@style/ItemDetailTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                tools:ignore="UselessLeaf" />
+                android:text="@string/item_detail_feature" />
 
+            <TextView
+                android:id="@+id/tv_feature"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <!-- 功能性 -->
+            <TextView
+                style="@style/ItemDetailTitle"
+                android:id="@+id/tv_function_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/item_detail_function_plant" />
+
+            <TextView
+                android:id="@+id/tv_function"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <!-- 時間 -->
+            <TextView
+                style="@style/ItemDetailTitle"
+                android:id="@+id/tv_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

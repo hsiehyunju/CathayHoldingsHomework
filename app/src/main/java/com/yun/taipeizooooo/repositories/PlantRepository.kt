@@ -1,6 +1,7 @@
  package com.yun.taipeizooooo.repositories
 
 import com.yun.taipeizooooo.models.DistrictResponse
+import com.yun.taipeizooooo.models.PlantResult
 import com.yun.taipeizooooo.models.RequestData
 import com.yun.taipeizooooo.network.ApiService
 
@@ -21,7 +22,7 @@ import com.yun.taipeizooooo.network.ApiService
     suspend fun fetchPlant(
         offset: Int,
         limit: Int
-    ): DistrictResponse = apiService.get(
+    ): PlantResult = apiService.get(
         url = "https://data.taipei/api/v1/dataset/e20706d8-bf89-4e6a-9768-db2a10bb2ba4?scope=resourceAquire",
         request = RequestData(offset, limit)
     )
