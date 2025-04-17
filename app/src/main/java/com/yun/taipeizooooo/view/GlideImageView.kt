@@ -8,11 +8,13 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.ProgressBar
 import androidx.appcompat.widget.AppCompatImageView
+import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
+import com.yun.taipeizooooo.R
 
 class GlideImageView @JvmOverloads constructor(
     context: Context,
@@ -60,7 +62,14 @@ class GlideImageView @JvmOverloads constructor(
                     target: Target<Drawable?>,
                     isFirstResource: Boolean,
                 ): Boolean {
-                    return false
+                    target.onLoadFailed(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.broken_image
+                        )
+                    )
+                    progressBar.visibility = GONE
+                    return true
                 }
 
                 override fun onResourceReady(
