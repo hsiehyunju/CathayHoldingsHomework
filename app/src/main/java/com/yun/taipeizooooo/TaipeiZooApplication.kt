@@ -19,7 +19,7 @@ class TaipeiZooApplication : Application() {
         startKoin {
             androidContext(this@TaipeiZooApplication)
             modules(
-                networkModule,           // 你的 module 清單
+                networkModule,
                 repositoriesModule,
                 useCasesModule,
                 viewModelsModule
