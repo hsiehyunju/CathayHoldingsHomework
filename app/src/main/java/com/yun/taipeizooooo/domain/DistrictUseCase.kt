@@ -35,20 +35,11 @@ class DistrictUseCase(
             val response = repository.fetchDistricts(offset = currentOffset, limit = pageSize)
             totalSize = response.result.count
 
-            // 將 http 改為 https
-            val districts = response.result.results.map { district ->
-                if (district.pictureUrl.startsWith("http://")) {
-                    district.copy(pictureUrl = district.pictureUrl.replaceFirst("http://", "https://"))
-                } else {
-                    district
-                }
-            }
-
-            cachedList.addAll(districts)
+            cachedList.addAll(response.result.results)
             if (cachedList.size >= totalSize) {
                 isOver = true
             }
-            currentOffset += districts.size
+            currentOffset += response.result.results.size
 
             if (cachedList.isEmpty()) {
                 emit(DistrictUiState.Failure("No Data Found"))
