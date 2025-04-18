@@ -10,9 +10,17 @@ import org.koin.core.context.startKoin
 
 class TaipeiZooApplication : Application() {
 
+    companion object {
+        private var instance: TaipeiZooApplication? = null
+        fun getInstance(): TaipeiZooApplication {
+            return instance!!
+        }
+    }
+
     override fun onCreate() {
         super.onCreate()
         initKoin()
+        instance = this
     }
 
     private fun initKoin() {
@@ -26,5 +34,4 @@ class TaipeiZooApplication : Application() {
             )
         }
     }
-
 }
