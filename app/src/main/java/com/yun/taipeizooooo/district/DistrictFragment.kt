@@ -99,7 +99,7 @@ class DistrictFragment : Fragment() {
 
     private fun initCollect() {
         viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 viewModel.uiState.collectLatest {
                     when (it) {
                         is DistrictUiState.Loading -> {

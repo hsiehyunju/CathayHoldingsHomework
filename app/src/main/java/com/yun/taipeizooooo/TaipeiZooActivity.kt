@@ -38,6 +38,7 @@ class TaipeiZooActivity : AppCompatActivity() {
 
         initEdgeToEdge()
         initView()
+        initData()
         initListener()
         initCollect()
 
@@ -62,6 +63,8 @@ class TaipeiZooActivity : AppCompatActivity() {
             insets
         }
     }
+
+    private fun initData() = viewModel.loadData()
 
     private fun initListener() {
         supportFragmentManager.addOnBackStackChangedListener {

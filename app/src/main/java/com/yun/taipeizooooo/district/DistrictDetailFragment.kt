@@ -116,7 +116,7 @@ class DistrictDetailFragment : Fragment() {
 
     private fun initCollect() {
         viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 shareViewModel.animalData.collectLatest { animalList ->
                     val targetList = detailData?.name?.let { location ->
                         animalList.filter { it.location.contains(location) }
@@ -149,7 +149,7 @@ class DistrictDetailFragment : Fragment() {
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 shareViewModel.plantsData.collectLatest { plantList ->
 
                     val targetList = detailData?.name?.let { location ->

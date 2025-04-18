@@ -10,6 +10,7 @@ import com.yun.taipeizooooo.models.Plant
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class TaipeiZooActivityViewModel(
@@ -21,12 +22,12 @@ class TaipeiZooActivityViewModel(
     val events = _events.asSharedFlow()
 
     private val _plantsData: MutableStateFlow<List<Plant>> = MutableStateFlow(emptyList())
-    val plantsData = _plantsData.asSharedFlow()
+    val plantsData = _plantsData.asStateFlow()
 
     private val _animationData: MutableStateFlow<List<Animal>> = MutableStateFlow(emptyList())
-    val animalData = _animationData.asSharedFlow()
+    val animalData = _animationData.asStateFlow()
 
-    init {
+    fun loadData() {
         viewModelScope.launch {
             plantUseCase.invoke().collect { newList ->
                 val currentList = _plantsData.value
