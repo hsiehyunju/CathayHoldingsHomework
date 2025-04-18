@@ -9,13 +9,13 @@ import com.yun.taipeizooooo.databinding.ItemDistrictInfoBinding
 import com.yun.taipeizooooo.models.DistrictData
 
 class DistrictAdapter(
-    private val onItemClick: ((DistrictData) -> Unit)? = null,
+    private val onItemClick: ((DistrictData) -> Unit)? = null
 ) : ListAdapter<DistrictData, DistrictAdapter.DistrictViewHolder>(DIFF_CALLBACK) {
 
     inner class DistrictViewHolder(private val binding: ItemDistrictInfoBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(data: DistrictData) {
             binding.apply {
-                imageView.loadImage(data.pictureUrl)
+                imageView.loadImage(url = data.pictureUrl)
                 tvTitle.text = data.name
                 tvDesc.text = data.info
                 root.setOnClickListener {

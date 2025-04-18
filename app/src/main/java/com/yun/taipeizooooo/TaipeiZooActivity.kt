@@ -3,7 +3,6 @@ package com.yun.taipeizooooo
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
@@ -15,8 +14,9 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.yun.taipeizooooo.databinding.ActivityTaipeiZooBinding
 import com.yun.taipeizooooo.district.DistrictDetailFragment
 import com.yun.taipeizooooo.district.DistrictFragment
-import com.yun.taipeizooooo.district.ItemDetailFragment
 import com.yun.taipeizooooo.events.TaipeiZooActivityEvents
+import com.yun.taipeizooooo.extension.toItemDetailUiData
+import com.yun.taipeizooooo.itemdetail.ItemDetailFragment
 import com.yun.taipeizooooo.viewModels.TaipeiZooActivityViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -82,16 +82,23 @@ class TaipeiZooActivity : AppCompatActivity() {
                 viewModel.events.collectLatest { event ->
                     when (event) {
                         is TaipeiZooActivityEvents.ToDistrictDetail -> {
-                            supportFragmentManager.beginTransaction()
-                                .add(binding.fragmentContainer.id, DistrictDetailFragment.getInstance(event.data))
-                                .addToBackStack(null)
-                                .commit()
+                            addToFragment(
+                                fragment = DistrictDetailFragment.getInstance(event.data)
+                            )
                         }
-                        is TaipeiZooActivityEvents.ToItemDetail -> {
-                            supportFragmentManager.beginTransaction()
-                                .add(binding.fragmentContainer.id, ItemDetailFragment.getInstance(event.item))
-                                .addToBackStack(null)
-                                .commit()
+                        is TaipeiZooActivityEvents.ToItemDetailWithAnimal -> {
+                            addToFragment(
+                                fragment = ItemDetailFragment.getInstance(
+                                    uiData = event.item.toItemDetailUiData()
+                                )
+                            )
+                        }
+                        is TaipeiZooActivityEvents.ToItemDetailWithPlant -> {
+                            addToFragment(
+                                fragment = ItemDetailFragment.getInstance(
+                                    uiData = event.item.toItemDetailUiData()
+                                )
+                            )
                         }
                     }
                 }
@@ -108,6 +115,10 @@ class TaipeiZooActivity : AppCompatActivity() {
             .commit()
     }
 
-    /** Set the title of the support action bar. */
-    private fun setSupportActionBarTitle(@StringRes resId: Int) = supportActionBar?.setTitle(resId)
+    private fun addToFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction()
+            .add(binding.fragmentContainer.id, fragment)
+            .addToBackStack(null)
+            .commit()
+    }
 }

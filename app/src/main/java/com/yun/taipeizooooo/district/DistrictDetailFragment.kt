@@ -19,6 +19,7 @@ import com.yun.taipeizooooo.databinding.ItemPlantOrAnimalItemBinding
 import com.yun.taipeizooooo.events.TaipeiZooActivityEvents
 import com.yun.taipeizooooo.extension.getFormattedUpdateDate
 import com.yun.taipeizooooo.models.DistrictData
+import com.yun.taipeizooooo.utils.StringUtils
 import com.yun.taipeizooooo.viewModels.TaipeiZooActivityViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -64,14 +65,14 @@ class DistrictDetailFragment : Fragment() {
     private fun initView() {
         detailData?.let { data ->
             binding.collapsingToolbarLayout.title = data.name
-            binding.glideImageView.loadImage(data.pictureUrl)
+            binding.glideImageView.loadImage(url = data.pictureUrl)
             binding.tvDistrictInfo.text = data.info
             data.memo?.let {
                 if (it.isNotEmpty()) {
                     binding.tvMemo.text = it
                 }
             }
-            binding.tvUpdateTime.text = getString(
+            binding.tvUpdateTime.text = StringUtils.getString(
                 R.string.district_detail_update_time_title,
                 data.importDate.getFormattedUpdateDate()
             )
@@ -130,10 +131,10 @@ class DistrictDetailFragment : Fragment() {
                                 layoutInflater,
                                 binding.llAnimalItems, false)
 
-                            itemBinding.glideImageView.loadImage(animal.pic01Url)
+                            itemBinding.glideImageView.loadImage(url = animal.pic01Url)
                             itemBinding.tvItemName.text = animal.nameCh
                             itemBinding.root.setOnClickListener {
-                                shareViewModel.go(TaipeiZooActivityEvents.ToItemDetail(
+                                shareViewModel.go(TaipeiZooActivityEvents.ToItemDetailWithAnimal(
                                     item = animal
                                 ))
                             }
@@ -164,10 +165,10 @@ class DistrictDetailFragment : Fragment() {
                                 layoutInflater,
                                 binding.llPlantItems, false)
 
-                            itemBinding.glideImageView.loadImage(plant.pic01Url)
+                            itemBinding.glideImageView.loadImage(url = plant.pic01Url)
                             itemBinding.tvItemName.text = plant.nameCh
                             itemBinding.root.setOnClickListener {
-                                shareViewModel.go(TaipeiZooActivityEvents.ToItemDetail(
+                                shareViewModel.go(TaipeiZooActivityEvents.ToItemDetailWithPlant(
                                     item = plant
                                 ))
                             }

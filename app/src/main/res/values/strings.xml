@@ -23,4 +23,6 @@
     <string name="item_detail_function_plant">功能性</string>
     <string name="item_detail_function_animal">其他介紹</string>
 
+    <string name="other_none">無</string>
+
 </resources>
