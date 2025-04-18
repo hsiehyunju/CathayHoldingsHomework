@@ -114,7 +114,6 @@ class DistrictFragment : Fragment() {
 
                         is DistrictUiState.Failure -> {
                             binding.progress.visibility = View.INVISIBLE
-//                            binding.testbtn.text = "Error"
                         }
                     }
                 }
