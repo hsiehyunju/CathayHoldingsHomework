@@ -1,7 +1,6 @@
  package com.yun.taipeizooooo.repositories
 
 import com.yun.taipeizooooo.models.AnimalResponse
-import com.yun.taipeizooooo.models.DistrictResponse
 import com.yun.taipeizooooo.models.RequestData
 import com.yun.taipeizooooo.network.ApiService
 
