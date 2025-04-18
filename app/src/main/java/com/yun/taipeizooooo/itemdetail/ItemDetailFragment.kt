@@ -15,22 +15,21 @@ import com.yun.taipeizooooo.utils.StringUtils
 class ItemDetailFragment : Fragment() {
 
     private val data: ItemDetailUiData by lazy {
-        arguments?.getParcelable(KEY_UI_DATA, ItemDetailUiData::class.java)
-            ?: ItemDetailUiData()
+        arguments?.getParcelable(
+            ItemDetailUiData::class.java.name,
+            ItemDetailUiData::class.java
+        ) ?: ItemDetailUiData()
     }
 
     private lateinit var binding: FragmentItemDetailBinding
 
     companion object {
-
-        const val KEY_UI_DATA = "uiData"
-
         fun getInstance(
             uiData: ItemDetailUiData
         ) : ItemDetailFragment {
             return ItemDetailFragment().apply {
                 arguments = bundleOf(
-                    KEY_UI_DATA to uiData
+                    ItemDetailUiData::class.java.name to uiData
                 )
             }
         }
@@ -74,8 +73,6 @@ class ItemDetailFragment : Fragment() {
                 )
             }
         }
-
-
     }
 
     private fun initEdge2Edge() {
