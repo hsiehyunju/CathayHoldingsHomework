@@ -67,11 +67,7 @@ class ItemDetailFragment : Fragment() {
                 tvIntro.text = intro
                 tvFeature.text = feature
                 tvFunction.text = function
-                tvFunctionTitle.text = when (type) {
-                    ItemDetailDataType.Animal -> StringUtils.getString(R.string.item_detail_function_animal)
-                    ItemDetailDataType.Plant -> StringUtils.getString(R.string.item_detail_function_plant)
-                }
-
+                tvFunctionTitle.text = functionTitle
                 tvTime.text = StringUtils.getString(
                     R.string.district_detail_update_time_title,
                     updateTime
