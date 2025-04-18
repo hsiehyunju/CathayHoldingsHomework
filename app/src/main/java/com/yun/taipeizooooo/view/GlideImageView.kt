@@ -53,7 +53,7 @@ class GlideImageView @JvmOverloads constructor(
             url
         }
 
-        Glide.with(context)
+        Glide.with(this)
             .load(fixedUrl)
             .addListener(object : RequestListener<Drawable> {
                 override fun onLoadFailed(
@@ -84,5 +84,10 @@ class GlideImageView @JvmOverloads constructor(
                 }
             })
             .into(imageView)
+    }
+
+    override fun onDetachedFromWindow() {
+        super.onDetachedFromWindow()
+        Glide.with(this).clear(imageView)
     }
 }
